@@ -1,0 +1,57 @@
+-- DATASET DOWNLOADED FROM https://www.kaggle.com/datasets/thedevastator/unlock-profits-with-e-commerce-sales-data
+
+CREATE OR REPLACE TABLE DEV.CORE.T_AMAZON_SALE_REPORT (
+    INDEX NUMBER,
+    ORDER_ID STRING,
+    DATE DATE COMMENT 'Date of the sale.',
+    STATUS STRING COMMENT 'Status of the sale',
+    FULFILMENT STRING COMMENT 'Method of fulfilment.',
+    SALES_CHANNEL STRING,
+    SHIP_SERVICE_LEVEL STRING,
+    STYLE STRING COMMENT 'Style of the product.',
+    SKU STRING COMMENT 'Stock Keeping Unit.',
+    CATEGORY STRING COMMENT 'Type of the product.',
+    SIZE STRING COMMENT 'Size of the product.',
+    ASIN STRING COMMENT 'Amazon Standard Identification Number.',
+    COURIER_STATUS STRING COMMENT 'Status of the courier.',
+    QTY NUMBER COMMENT 'Quantity of the product.',
+    CURRENCY STRING COMMENT 'The currency used for the sale.',
+    AMOUNT NUMBER COMMENT 'Amount of the sale.',
+    SHIP_CITY STRING,
+    SHIP_STATE STRING,
+    SHIP_POSTAL_CODE STRING,
+    SHIP_COUNTRY STRING,
+    PROMOTION_IDS STRING,
+    B2B STRING COMMENT 'Business to business sale.',
+    FULFILLED_BY STRING
+) AS SELECT
+    "index" AS INDEX,
+    "Order ID" AS ORDER_ID,
+    TO_DATE("Date", 'MM-DD-YY') AS DATE,
+    "Status" AS STATUS,
+    "Fulfilment" AS FULFILMENT,
+    "Sales Channel " AS SALES_CHANNEL,
+    "ship-service-level" AS SHIP_SERVICE_LEVEL,
+    "Style" AS STYLE,
+    "SKU",
+    "Category" AS CATEGORY,
+    "Size" AS SIZE,
+    "ASIN",
+    "Courier Status" AS COURIER_STATUS,
+    "Qty" AS QTY,
+    "currency" AS CURRENCY,
+    "Amount" AS AMOUNT,
+    "ship-city" AS SHIP_CITY,
+    "ship-state" AS SHIP_STATE,
+    "ship-postal-code" AS SHIP_POSTAL_CODE,
+    "ship-country" AS SHIP_COUNTRY,
+    "promotion-ids" AS PROMOTION_IDS,
+    "B2B",
+    "fulfilled-by" AS FULFILLED_BY
+FROM DEV.STAGE.T_AMAZON_SALE_REPORT;
+
+SELECT * FROM DEV.STAGE.T_AMAZON_SALE_REPORT;
+
+SELECT * FROM DEV.CORE.T_AMAZON_SALE_REPORT;
+
+SELECT COUNT(*) FROM DEV.CORE.T_AMAZON_SALE_REPORT;

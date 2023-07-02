@@ -1,3 +1,6 @@
+-- DATASET DOWNLOADED FROM https://www.kaggle.com/datasets/thedevastator/unlock-profits-with-e-commerce-sales-data
+
+
 LS @DEV_ECOMM_STAGE;
 
 -- azure://saecommdev.blob.core.windows.net/ecommcsv/Amazon Sale Report.csv,68923428,,"Sun, 2 Jul 2023 08:17:18 GMT"
@@ -25,6 +28,7 @@ CREATE TABLE IF NOT EXISTS DEV.STAGE.T_AMAZON_SALE_REPORT
               FILE_FORMAT => 'CSV_ECOMM_FF'
             )
       ));
+
 
 COPY INTO DEV.STAGE.T_AMAZON_SALE_REPORT FROM @DEV_ECOMM_STAGE
     FILE_FORMAT = CSV_ECOMM_FF
