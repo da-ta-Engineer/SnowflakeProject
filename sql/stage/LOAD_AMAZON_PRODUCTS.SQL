@@ -1,0 +1,24 @@
+-- DATASET SOURCE: https://www.kaggle.com/datasets/promptcloud/amazon-product-dataset-2020
+
+USE DATABASE DEV;
+USE WAREHOUSE DEV_WH;
+LS @DEV_ECOMM_STAGE;
+
+CREATE TABLE IF NOT EXISTS DEV.STAGE.T_AMAZON_PRODUCTS
+    USING TEMPLATE (
+        SELECT ARRAY_AGG(OBJECT_CONSTRUCT(*)) FROM TABLE(
+            INFER_SCHEMA(
+              LOCATION => '@DEV_ECOMM_STAGE',
+              FILES => 'marketing_sample_for_amazon_com-ecommerce__20200101_20200131__10k_data.csv',
+              FILE_FORMAT => 'CSV_ECOMM_FF'
+            )
+      ));
+
+COPY INTO DEV.STAGE.T_AMAZON_PRODUCTS FROM @DEV_ECOMM_STAGE
+    FILE_FORMAT = CSV_ECOMM_FF
+    PATTERN = '.*marketing_sample_for_amazon_com-ecommerce__20200101_20200131__10k_data.csv'
+    MATCH_BY_COLUMN_NAME='CASE_INSENSITIVE';
+
+SELECT * FROM DEV.STAGE.T_AMAZON_PRODUCTS WHERE "Asin" IS NOT NULL;
+
+-- DATASET QUALITY IS VERY LOW, MOST OF THE COLUMNS ARE EMPTY
