@@ -12,3 +12,12 @@ ALTER STORAGE INTEGRATION DEV_STORAGE_INT SET
 CREATE STAGE IF NOT EXISTS DEV_AMAZON_STAGE
     URL = 'azure://saecommdev.blob.core.windows.net/amazonproducts/'
     STORAGE_INTEGRATION = DEV_STORAGE_INT;
+
+ALTER STORAGE INTEGRATION DEV_STORAGE_INT SET
+    STORAGE_ALLOWED_LOCATIONS = ('azure://saecommdev.blob.core.windows.net/ecommcsv/',
+    'azure://saecommdev.blob.core.windows.net/amazonproducts/',
+    'azure://saecommdev.blob.core.windows.net/poc/');
+
+CREATE STAGE IF NOT EXISTS DEV_POC_STAGE
+    URL = 'azure://saecommdev.blob.core.windows.net/poc/'
+    STORAGE_INTEGRATION = DEV_STORAGE_INT;
